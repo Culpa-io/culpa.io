@@ -1,0 +1,3 @@
+staticfiles
+staticfiles/*
+culpa/.env

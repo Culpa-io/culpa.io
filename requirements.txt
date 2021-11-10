@@ -1,0 +1,7 @@
+Django==3.1.7
+gunicorn
+django-heroku
+Pillow
+django-storages
+boto3
+inflect

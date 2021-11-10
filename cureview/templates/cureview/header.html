@@ -1,0 +1,66 @@
+
+<html>
+    <head>
+        <style>     
+
+body, html {
+            padding: 0;
+            margin: 0;
+        }
+
+          :root {
+            --cublue: #101a46;
+        }
+        
+            #header {
+                background-color: var(--cublue);
+                width: 100%;
+                height: 80px;
+                margin-bottom: 0px;
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+            }
+
+            .header-text {
+                font-family: sans-serif;
+                font-weight: 300;
+                color: white;
+                color: rgb(230, 230, 230);
+                font-size: 25px;
+                margin-left: 30px;
+                cursor: pointer;
+            }
+
+            .tl {
+                margin-left: auto;
+                font-weight: 400;
+            }
+
+            .rm {
+                margin-right: 30px;
+                font-weight: 100;
+            }
+
+            .tl, .rm {
+                font-size: 20px;
+            }
+
+            .lm {
+                opacity: 1;
+                /* font-weight: 300; . */
+            }
+        </style>
+
+
+    </head>
+
+    <body>
+        <div id="header"> 
+            <h1 onclick="window.location.href='/';" class="header-text lm">Home</h1>
+            <h1 onclick="window.location.href='/compose';" class="header-text tl">New Review</h1>
+            <h1  onclick="window.location.href='/search';" class="header-text rm">Search</h1>
+        </div>
+    </body>
+
+</html>

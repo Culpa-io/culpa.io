@@ -1,0 +1,496 @@
+<html>
+
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-LG7HHMKB93"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-LG7HHMKB93');
+        </script>
+
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'nice-select.css' %}"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/css/autoComplete.min.css">
+
+        <style>
+
+            .toprow {
+                display: flex;
+                flex-direction: row;
+                width: 80%;
+                margin-left: 10%;
+                margin-top: 30px;
+                box-shadow: 0px 10px 30px 0px rgba(0,0,0,0.2);
+            }
+
+            .nice-select {
+                font-family: sans-serif;
+                font-weight: 300;
+                width: 30%;
+                height: 70px;
+            }
+
+            .current {
+                margin-top: 15px;
+                display: block;
+                font-size: 15px;
+            }
+
+
+
+
+            .review-search {
+                width: 70%;
+                border: none;
+                border: 1px solid rgba(0,0,0,0.2);
+                font-size: 19px;
+                font-weight: 200;
+                text-indent: 10px;
+                font-family: sans-serif;
+                opacity: 0.8;
+                height: 70px;
+            }
+
+            .review-search:focus {
+                outline: none;
+            }
+
+            .review-pending {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 100px;
+                transition: 1.5s all;
+            }
+
+            .rpb {
+                filter: blur(5px);
+            }
+
+            .imguser {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                background-position: center;
+                background-size: cover;
+            }
+
+            .pending-name {
+                font-family: sans-serif;
+                font-weight: 600;
+            }
+
+            .pending-rn {
+                font-size: 18px;
+                font-family: sans-serif;
+                font-weight: 300;
+                margin-top: -8px;
+                font-style: italic;
+            }
+
+            .abtr {
+                text-align: center;
+                width: 100%;
+                margin-top: 70px;
+                font-family: sans-serif;
+                font-weight: 400;
+                opacity: 0.8;
+                font-size: 35px;
+                font-style: italic;
+            }
+
+            .cont {
+                color: rgba(16, 26, 70, 0.8);
+                font-family: sans-serif;
+                font-weight: 300;
+                text-align: center;
+                margin-top: 80px;
+                font-size: 25px;
+                cursor: pointer;
+            }
+
+            * {
+                font-family: sans-serif;
+            }
+
+            .autoComplete_wrapper {
+                width: 100%;
+                height: 70px;
+            }
+
+            #autoComplete  {
+                width: 100%;
+                border-radius: 0px;
+                height: 70px;
+                background-position: left 1.05rem top 45%;
+
+            }
+
+            .review-search {
+                padding-top: 50px;
+            }
+
+            .write-review {
+                /* opacity: 0; */
+                display: flex;
+                flex-direction: column;
+                width: 70%;
+                margin-left: 15%;
+                opacity: 0;
+                transition: 1s opacity;
+            }
+
+            .review-title, .review-content {
+                color: rgba(0,0,0,0.2);
+                font-family: sans-serif;
+                font-weight: 500;
+                border: none;
+                outline: none;
+                background-color: rgba(0,0,0,0.015);
+                transition: 0.5s border;
+
+            }
+
+            .review-title:focus, .review-content:focus {
+                border: 1px solid rgba(255,122,122,.2);
+                outline: none;
+            }
+
+            .review-title {
+                height: 50px;
+                font-size: 18px;
+                text-indent: 10px;
+            }
+
+            .review-title::placeholder, .review-content::placeholder {
+                color: rgba(0,0,0,0.2);
+            }
+
+
+            .review-content {
+                height: 300px;
+                font-size: 15px;
+                margin-top: 15px;
+                text-indent: 10px;
+                padding-top: 20px;
+                resize: none;
+                overflow: hidden !important;
+            }
+
+            .submit-review {
+                height: 60px;
+                margin-top: 25px;
+                margin-bottom: 25px;
+                border: none;
+                outline: none;
+                background-color: rgba(0,0,0,0.05);
+                font-family: sans-serif;
+                font-weight: 700;
+                cursor: pointer;
+                color: rgba(0,0,0,0.2);
+
+            }
+
+            .rating-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            width: 130px;
+            margin-bottom: 15px;
+        }
+
+        .star-item  {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .gs {
+            filter: grayscale(100%);
+        }
+
+        .select-sort { 
+            display: none; 
+        }
+
+        .prof-listing {
+
+        }
+
+        .autoComplete_wrapper>input { 
+            border: .05rem solid rgba(16, 26, 70, 0.2);
+        }
+
+        .autoComplete_wrapper>input:focus { 
+            border: .05rem solid rgba(16, 26, 70, 0.1);
+        }
+
+        #autoComplete::placeholder {
+            color: rgba(123, 123, 123, 0.5);
+        } 
+
+        #autoComplete {
+            color: rgba(16, 26, 70, 0.8);
+            filter: grayscale(100%);
+        }
+
+        </style>
+
+    </head>
+
+    <body>
+        {% include 'cureview/header.html' %}
+        
+        <div class="toprow">
+            <input id="autoComplete" class="review-search" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off">
+        </div>
+
+        <h1 id="revnotice"  class="abtr">You're about to review...</h1>
+        <div class="review-pending">
+            
+            <img id="pi" class="imguser" />
+            <h1 id="pn" class="pending-name">Professor Example</h1>
+            <h1 id="pc" class="pending-rn">294 reviews</h1>
+        </div>
+        <h3 class="cont">Continue »</h3>
+
+        <div class="write-review">
+            {% csrf_token %}
+            <div class="rating-row">
+                <img id="s1" src="{% static 'star.png' %}"class="star-item gs"/>
+                <img id="s2" src="{% static 'star.png' %}"class="star-item gs"/>
+                <img id="s3" src="{% static 'star.png' %}"class="star-item gs"/>
+                <img id="s4" src="{% static 'star.png' %}"class="star-item gs"/>
+                <img id="s5" src="{% static 'star.png' %}"class="star-item gs"/>
+            </div>
+            <input id="title-submit" class="review-title" placeholder="A brief title"/>
+            <select class="prof-listing wide" id="prof-select">
+            </select>
+            <textarea id="thoughts-submit" class="review-content" placeholder="Your thoughts..."></textarea>
+
+            <button class="submit-review">SUBMIT REVIEW</button>
+        </div>
+
+
+    </body>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="{% static 'jquery.nice-select.js' %}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js"></script>
+
+    <script>
+
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        var canProceed = false;
+        var CUR_ID;
+        var CUR_NAME;
+        var CUR_CAT;
+
+        $(document).ready(function(){
+            $('select').niceSelect();
+        });
+
+        $('.cont').click(function(){
+            if (canProceed) {
+
+            } else { 
+                Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'You need to select something from the search bar to review first!'
+                });
+            }
+        });
+
+        function updateDisplay(data){
+            const propImage = document.getElementById('pi');
+            const propName = document.getElementById('pn');
+            const propCount = document.getElementById('pc');
+
+            if (data){
+                CUR_CAT = data.category_name;
+                propImage.style.backgroundImage = `url('${data.image_url}')`;
+                propName.innerHTML = data.name;
+                propCount.innerHTML = `${data.num_reviews} reviews`;
+                $('.review-pending').removeClass('rpb');
+                $('#revnotice').html(`You're about to review a ${CUR_CAT}...`);
+                $('.write-review').css({opacity: 1});
+
+
+                if (!!data.professors.length) {
+                    $('.nice-select').css({display: 'inline-block'});
+                    document.querySelector('#prof-select').innerHTML = data.professors.map(p => `<option value="${p.uni}">${p.name} (${p.uni})</option>`).join(`\n`);
+                    $('select').niceSelect();
+                    $('select').niceSelect('update');
+
+                }  else if (!!data.courses.length) { 
+                    $('.nice-select').css({display: 'inline-block'});
+                    document.querySelector('#prof-select').innerHTML = data.courses.map(c => `<option value="${c.roid}">${c.name}</option>`).join(`\n`);
+                    $('select').niceSelect();
+                    $('select').niceSelect('update');
+                } else {
+                    $('.nice-select').css({display: 'none'});
+                }
+
+            } else {
+                propImage.style.backgroundImage = `url('{% static 'user.png' %}')`;
+                propName.innerHTML = `Professor Example`;
+                propCount.innerHTML = `294 reviews`;
+                $('.review-pending').addClass('rpb');
+                $('#revnotice').html(`You're about to review...`);    
+                $('.write-review').css({opacity: 0});   
+            }
+        }
+
+
+        const autoCompleteJS = new autoComplete({
+            placeHolder: "Search for professors, residence halls, clubs...",
+            data: {
+                src: async (query) => {
+                    const source = await fetch(`/search-opt?query=${query}`);
+                    const data = await source.json();
+
+
+                    return data;
+                },
+                cache: false,
+                keys: ["name"]
+            },
+            resultItem: {
+                highlight: true
+            },
+            searchEngine: 'loose',
+            query: (input) => {
+                if (input === ``){
+                   updateDisplay();
+                   canProceed = false;
+                }
+
+                return input;
+            },
+            events: {
+                input: {
+                    selection: (event) => {
+                        const selection = event.detail.selection;
+                        const name = selection.value[selection.key];
+                        autoCompleteJS.input.value = name;
+
+                        CUR_ID = selection.value.id;
+                        CUR_NAME = name;
+
+
+                        fetch(`/getrodata?id=${selection.value.id}`).then(res=>res.json()).then(json => {
+                            updateDisplay(json);
+                            canProceed = true;
+                        })
+                    }
+                },
+
+
+            }
+        });
+
+        const e_target = new URL(window.location.href).searchParams.get('target');
+        if (e_target){ 
+            CUR_ID = e_target;
+            CUR_NAME = new URL(window.location.href).searchParams.get('name');
+            fetch(`/getrodata?id=${e_target}`).then(res=>res.json()).then(json => {
+                            updateDisplay(json);
+                            canProceed = true;
+            });
+        } else { 
+            updateDisplay();
+        }
+
+        var starState = null;
+        var cIdxGlobal = null;
+        $('.star-item').hover((event) => {
+            let cStar = event.currentTarget;
+            let cIdx = parseInt(cStar.id.replace('s', ''));
+            for (var i=1;i<=cIdx;i++){
+                let star = document.getElementById(`s${i}`);
+                $(star).removeClass('gs');
+            }
+
+            for (var i=cIdx+1;i<=5;i++) {
+            let star = document.getElementById(`s${i}`);
+                $(star).addClass('gs');
+            }
+
+            cIdxGlobal = cIdx;
+        });
+
+        $('.star-item').click(function(){
+            starState = cIdxGlobal;
+        })
+
+        $('.rating-row').mouseleave(function(){
+            for (var i=1;i<=starState;i++){
+                let star = document.getElementById(`s${i}`);
+                $(star).removeClass('gs');
+            }
+            for (var i=starState+1;i<=5;i++) {
+            let star = document.getElementById(`s${i}`);
+                $(star).addClass('gs');
+            }
+        })
+
+
+        $('.submit-review').click(function(){
+            // Check invalid 
+
+            const title = document.getElementById('title-submit').value;
+            const thoughts = document.getElementById('thoughts-submit').value;
+            const selectMeta = document.querySelector('#prof-select').value;
+
+            if (starState === null || !thoughts || !title || !CUR_ID) {
+                Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'You need to provide a rating, title, and review before submitting!'
+                });
+                return;
+            }
+
+            const data = {
+                title: title,
+                review: thoughts, 
+                rating: starState,
+                target_id: CUR_ID,
+                category: CUR_CAT,
+                metadata: selectMeta || undefined,
+            };
+
+            fetch(`/submitreview`, {
+                method: "POST",
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify(data)
+             }).then(response => response.json()).then(json =>{
+                 if (json.success){ 
+                    Swal.fire({
+                        icon: 'success',
+                        title: `${CUR_NAME} Review Submitted!`,
+                        text: 'Thanks for submitting a review. Reviews are generally approved within 1-2 days, so check back soon!'
+                    }).then(result => {
+                        window.location = '/';
+                    })
+                 } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong! Please try again later.'
+                    });
+                 }
+             })
+        })
+        
+        
+    </script>
+
+</html>
