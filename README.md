@@ -12,7 +12,7 @@ If you want to contribute to the project and learn more about how it's run, keep
 
 To get started, clone this repository using the following command: 
 
-`git clone https://github.com/Culpa-io/culpa.io.git`
+`git clone https://github.com/Culpa-io/culpa.io`
 
 If you are not familiar with git, that's fine! Check out [these resources](https://docs.github.com/en/get-started) and head back when you are all set up. You can also join the Culpa [discord](https://discord.com/invite/adWZA6Qwq6) here for assistance.
 
