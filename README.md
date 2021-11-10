@@ -1,4 +1,4 @@
-<img width="1362" alt="Screen Shot 2021-08-30 at 8 12 43 AM" src="https://user-images.githubusercontent.com/22382740/131337168-55d5cb55-b174-4ec2-bf29-26d927187b92.png">
+<img width="1362" alt="Culpa.io Preview" src="docs/img/culpa-preview.png">
 
 # Culpa.io
 
