@@ -26,4 +26,12 @@ To run this project, you will need [Python 3](https://www.python.org/downloads/)
 
 To run your local version of culpa, type `python3 manage.py runserver` in your terminal and hit enter. Paste the following URL (`http://127.0.0.1:8000/`) in your browser to use the site.
 
-[Branches](https://en.wikipedia.org/wiki/Branching_(version_control)) are an important part of software development. If you make a change to culpa, please open a pull request so that others can double check your work. It is never a good idea to push directly to master.
+[Branches](https://en.wikipedia.org/wiki/Branching_(version_control)) are an important part of software development. If you make a change to culpa, please open a pull request so that others can double check your work. **When you push to master on this repository, the code is deployed instantly and culpa.io updates for everyone**. For this reason, it almost never a good idea to push directly to master unless your changes do not touch any code or there is a critical issue.
+
+## How do I get started? What if I don't know how to code?
+
+If you have an idea that you would like to see added or are experiencing issues with the website, you can [create an issue here](https://github.com/Culpa-io/culpa.io/issues/new).
+
+If you want to contribute to culpa.io, you can make a [pull request](https://github.com/Culpa-io/culpa.io/compare) and it will be merged. 
+
+If you want to create your own version of culpa, you can fork the repository and make whatever changes you would like. 
