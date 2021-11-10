@@ -14,20 +14,22 @@
         {% load static %}
         <link rel="stylesheet" href="{% static 'nice-select.css' %}"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/css/autoComplete.min.css">
-
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    
         <style>
 
             .toprow {
                 display: flex;
                 flex-direction: row;
-                width: 80%;
-                margin-left: 10%;
+                width: 100%;
+
                 margin-top: 30px;
-                box-shadow: 0px 10px 30px 0px rgba(0,0,0,0.2);
+
+                margin-top: 90px;
             }
 
             .nice-select {
-                font-family: sans-serif;
+                font-family: 'Nunito', sans-serif;
                 font-weight: 300;
                 width: 30%;
                 height: 70px;
@@ -49,7 +51,7 @@
                 font-size: 19px;
                 font-weight: 200;
                 text-indent: 10px;
-                font-family: sans-serif;
+                font-family: 'Nunito', sans-serif;
                 opacity: 0.8;
                 height: 70px;
             }
@@ -79,13 +81,13 @@
             }
 
             .pending-name {
-                font-family: sans-serif;
+                font-family: 'Nunito', sans-serif;
                 font-weight: 600;
             }
 
             .pending-rn {
                 font-size: 18px;
-                font-family: sans-serif;
+                font-family: 'Nunito', sans-serif;
                 font-weight: 300;
                 margin-top: -8px;
                 font-style: italic;
@@ -95,8 +97,8 @@
                 text-align: center;
                 width: 100%;
                 margin-top: 70px;
-                font-family: sans-serif;
-                font-weight: 400;
+                font-family: 'Nunito', sans-serif;
+                font-weight: 700;
                 opacity: 0.8;
                 font-size: 35px;
                 font-style: italic;
@@ -104,7 +106,7 @@
 
             .cont {
                 color: rgba(16, 26, 70, 0.8);
-                font-family: sans-serif;
+                font-family: 'Nunito', sans-serif;
                 font-weight: 300;
                 text-align: center;
                 margin-top: 80px;
@@ -113,7 +115,7 @@
             }
 
             * {
-                font-family: sans-serif;
+                font-family: 'Nunito', sans-serif;
             }
 
             .autoComplete_wrapper {
@@ -126,6 +128,9 @@
                 border-radius: 0px;
                 height: 70px;
                 background-position: left 1.05rem top 45%;
+                background-color: white;
+                font-weight: 700;
+                font-size: 15.5px;
 
             }
 
@@ -145,7 +150,7 @@
 
             .review-title, .review-content {
                 color: rgba(0,0,0,0.2);
-                font-family: sans-serif;
+                font-family: 'Nunito', sans-serif;
                 font-weight: 500;
                 border: none;
                 outline: none;
@@ -155,7 +160,7 @@
             }
 
             .review-title:focus, .review-content:focus {
-                border: 1px solid rgba(255,122,122,.2);
+                border: 1px solid rgba(76, 77, 220, 0.135);
                 outline: none;
             }
 
@@ -187,7 +192,7 @@
                 border: none;
                 outline: none;
                 background-color: rgba(0,0,0,0.05);
-                font-family: sans-serif;
+                font-family: 'Nunito', sans-serif;
                 font-weight: 700;
                 cursor: pointer;
                 color: rgba(0,0,0,0.2);
@@ -237,6 +242,15 @@
             filter: grayscale(100%);
         }
 
+        #attach {
+            background-color: rgba(76, 77, 220, 0.8);
+            height: 2px;
+            width: 100%;
+        }
+
+            .abtr, .cont {
+                display: none;
+            }
         </style>
 
     </head>
@@ -247,6 +261,7 @@
         <div class="toprow">
             <input id="autoComplete" class="review-search" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off">
         </div>
+        <div id="attach"></div>
 
         <h1 id="revnotice"  class="abtr">You're about to review...</h1>
         <div class="review-pending">
@@ -314,6 +329,7 @@
             if (data){
                 CUR_CAT = data.category_name;
                 propImage.style.backgroundImage = `url('${data.image_url}')`;
+                $('.cont, .abtr').css({display: 'block'})
                 propName.innerHTML = data.name;
                 propCount.innerHTML = `${data.num_reviews} reviews`;
                 $('.review-pending').removeClass('rpb');
@@ -343,6 +359,7 @@
                 $('.review-pending').addClass('rpb');
                 $('#revnotice').html(`You're about to review...`);    
                 $('.write-review').css({opacity: 0});   
+                $('.cont, .abtr').css({display: 'none'})
             }
         }
 

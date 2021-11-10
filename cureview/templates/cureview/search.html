@@ -19,8 +19,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/css/autoComplete.min.css">
-
-
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style type="text/css">
@@ -44,7 +43,7 @@
             background-size: cover;
 
             box-shadow: 0px 10px 30px 0px rgba(0,0,0,0.3);    
-            margin-top: -35px;            
+            margin-top: 30px;            
         }
 
         #cu-review {
@@ -59,7 +58,7 @@
         }
 
         #autocomplete {
-           
+           font-family: 'Nunito', sans-serif;
         }
 
 
@@ -100,6 +99,8 @@
             font-family: 'Source Sans Pro', sans-serif;
             font-weight: 500;
             /* color: var(--cublue); */
+            font-family: 'Nunito', sans-serif; 
+            font-weight: 400;
         }
 
         /* .category-container {
@@ -495,6 +496,8 @@
     font-family: sans-serif;
     font-weight: 400;
     font-size: 17px;
+    font-family: 'Nunito', sans-serif; 
+    font-weight: 400;
 }
 
 .rating-info {
@@ -535,6 +538,8 @@
             opacity: 0.7;
             font-family: sans-serif;
             font-weight: 300;
+            font-family: 'Nunito', sans-serif; 
+            font-weight: 400;
         }
 
         .lr-container {
@@ -625,6 +630,8 @@
         font-family: sans-serif;
         border-radius: 5px;
         margin-left: 15px;
+        font-family: 'Nunito', sans-serif; 
+        font-weight: 800;
 
     }
 
@@ -666,6 +673,8 @@
         opacity: 0.5;
         font-weight: 500;
         font-style: italic;
+        font-family: 'Nunito', sans-serif; 
+        font-weight: 400;
     }
 
 
@@ -677,7 +686,6 @@
     {% include 'cureview/header.html' %}
 
     <div id="background">
-        <h1 id="cu-review">Culpa.io</h1>
     </div>
 
     <input id="autocomplete" placeholder="Search for professors, courses, dorms, & more..." type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off" />
