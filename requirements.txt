@@ -6,4 +6,4 @@ django-storages
 boto3
 inflect
 nltk
-load_dotenv
+python-dotenv
