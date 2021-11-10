@@ -22,6 +22,9 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
     <style type="text/css">
 
         :root {
@@ -41,7 +44,7 @@
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
-            margin-top: -35px;
+            margin-top: 30px;
 
             box-shadow: 0px 10px 30px 0px rgba(0,0,0,0.3);                
         }
@@ -68,9 +71,8 @@
             margin-top: -10px;
             font-size: 24px;
             font-family: sans-serif;
-            font-weight: 300;
-            /* font-family: 'Source Sans Pro', sans-serif; */
-            font-family: 'STIX Two Math', serif;
+            font-weight: 600;
+            font-family: 'Nunito', sans-serif; 
             text-indent: 40px;
             color: rgba(0,0,0,0.4);
             /* border-radius: 2.5px; */
@@ -113,8 +115,8 @@
             font-size: 18px;
             width: 100%;
             text-align: center;
-            font-family: 'Source Sans Pro', sans-serif;
-            font-weight: 500;
+            font-family: 'Nunito', sans-serif; 
+            font-weight: 400;
             /* color: var(--cublue); */
         }
 
@@ -170,12 +172,14 @@
         }
 
         .location-name {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-weight: 600;
+            font-family: 'Nunito', sans-serif; 
+            font-weight: 700;
             font-size: 25px;
             margin-left: 10px;
             color: rgba(0,0,0,0.8);
+            margin-bottom: 6.5px;
         }
+
 
         .rating-row {
             display: flex;
@@ -447,7 +451,7 @@
     {% include 'cureview/header.html' %}
 
     <div id="background">
-        <h1 id="cu-review">Culpa.io</h1>
+        <!-- <h1 id="cu-review">Culpa.io</h1> -->
     </div>
 
     <input spellcheck="false" id="explore"/>

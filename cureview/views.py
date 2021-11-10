@@ -7,6 +7,12 @@ from datetime import datetime
 import json, inflect
 p = inflect.engine()
 
+# Word cloud
+import nltk
+import re
+from nltk import word_tokenize
+from nltk.corpus import stopwords
+stop_words = stopwords.words('english')
 
 # @login_required
 def index(request):
@@ -72,7 +78,8 @@ def reviews(request, category, id):
         "image_url": target.image.url,
         "targetid": target.id,
         "has_meta":  categorySearch in ['professors', 'courses'],
-        "meta_category": 'professors' if categorySearch == 'courses' else 'courses'
+        "meta_category": 'professors' if categorySearch == 'courses' else 'courses',
+        "all_words": []
     }
 
     if not context['metadata']['has_meta']:
@@ -97,6 +104,12 @@ def reviews(request, category, id):
                 meta_url = '/reviews/professors/'+str(ReviewableObject.objects.get(relatedProfessor=review.relatedProfessor).id)
             else: 
                 meta_url = '/reviews/courses/'+str(review.target.id)
+        if categorySearch in ['professors', 'courses']:
+            for word in nltk.pos_tag(word_tokenize(review.contents)):
+                if not word[0].lower() in stop_words and word[1] in ['JJ'] and re.match('^\w+$', word[0]):
+                    context['metadata']['all_words'].append(word[0])
+        else:
+            context['metadata']['all_words'].append(review.title)
         reviewData.append({"title": review.title, "contents": review.contents, "on_stars": range(review.overall_rating),  "off_stars": range(5 - review.overall_rating),"date": review.date,
         "meta": meta, "meta_url": meta_url})
     context["reviewdata"] = reviewData

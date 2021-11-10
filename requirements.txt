@@ -5,3 +5,5 @@ Pillow
 django-storages
 boto3
 inflect
+nltk
+load_dotenv
