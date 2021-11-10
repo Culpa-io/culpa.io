@@ -110,8 +110,8 @@
                 font-weight: 300;
                 text-align: center;
                 margin-top: 80px;
-                font-size: 25px;
-                cursor: pointer;
+                font-size: 25px;   
+                display: none;
             }
 
             * {
@@ -145,6 +145,7 @@
                 width: 70%;
                 margin-left: 15%;
                 opacity: 0;
+                margin-top: 60px;
                 transition: 1s opacity;
             }
 
@@ -329,7 +330,7 @@
             if (data){
                 CUR_CAT = data.category_name;
                 propImage.style.backgroundImage = `url('${data.image_url}')`;
-                $('.cont, .abtr').css({display: 'block'})
+                $('.abtr').css({display: 'block'})
                 propName.innerHTML = data.name;
                 propCount.innerHTML = `${data.num_reviews} reviews`;
                 $('.review-pending').removeClass('rpb');
@@ -359,7 +360,7 @@
                 $('.review-pending').addClass('rpb');
                 $('#revnotice').html(`You're about to review...`);    
                 $('.write-review').css({opacity: 0});   
-                $('.cont, .abtr').css({display: 'none'})
+                $('.abtr').css({display: 'none'})
             }
         }
 
