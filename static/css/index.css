@@ -174,18 +174,6 @@ body, html {
     margin-top: -30px;
 }
 
-.mil {
-    background-image: url("{% static 'mil.jpg' %}");
-}
-
-.biz {
-    background-image: url("{% static 'biz.jpg' %}");
-}
-
-
-.noco {
-    background-image: url("{% static 'noco.jpg' %}");
-}
 
 .rating-info {
     display: flex;
@@ -387,7 +375,6 @@ body, html {
     margin-bottom: 0px;
     /* box-shadow: 0px 10px 30px 0px rgba(0,0,0,0.11); */
 
-    /* background-image: url("{% static 'cunight.jpg' %}"); */
     /* background-color: var(--cublue); */
     /* background-size: cover;
     background-position: center; */
