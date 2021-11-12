@@ -1,4 +1,4 @@
 staticfiles
 staticfiles/*
 culpa/.env
-.DS_Store
+**/.DS_Store
