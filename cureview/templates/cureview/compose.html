@@ -1,67 +1,71 @@
 <html>
 
-    <head>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-LG7HHMKB93"></script>
-        <script>
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LG7HHMKB93"></script>
+    <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
         gtag('config', 'G-LG7HHMKB93');
-        </script>
+    </script>
 
-        {% load static %}
-        <link rel="stylesheet" href="{% static 'css/libs/nice-select.css' %}"/>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/css/autoComplete.min.css">
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
-    
-        <link href="{% static 'css/compose.css' %}" rel="stylesheet" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/libs/nice-select.css' %}" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/css/autoComplete.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
+        rel="stylesheet">
 
-    </head>
+    <link href="{% static 'css/compose.css' %}" rel="stylesheet" />
 
-    <body>
-        {% include 'cureview/header.html' %}
-        
-        <div class="toprow">
-            <input id="autoComplete" class="review-search" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off">
+</head>
+
+<body>
+    {% include 'cureview/header.html' %}
+
+    <div class="toprow">
+        <input id="autoComplete" class="review-search" type="search" dir="ltr" spellcheck=false autocorrect="off"
+            autocomplete="off" autocapitalize="off">
+    </div>
+    <div id="attach"></div>
+
+    <h1 id="revnotice" class="abtr">You're about to review...</h1>
+    <div class="review-pending">
+
+        <img id="pi" class="imguser" />
+        <h1 id="pn" class="pending-name">Professor Example</h1>
+        <h1 id="pc" class="pending-rn">294 reviews</h1>
+    </div>
+    <h3 class="cont">Continue »</h3>
+
+    <div class="write-review">
+        {% csrf_token %}
+        <div class="rating-row">
+            <img id="s1" src="{% static 'img/star.png' %}" class="star-item gs" />
+            <img id="s2" src="{% static 'img/star.png' %}" class="star-item gs" />
+            <img id="s3" src="{% static 'img/star.png' %}" class="star-item gs" />
+            <img id="s4" src="{% static 'img/star.png' %}" class="star-item gs" />
+            <img id="s5" src="{% static 'img/star.png' %}" class="star-item gs" />
         </div>
-        <div id="attach"></div>
+        <input id="title-submit" class="review-title" placeholder="A brief title" />
+        <select class="prof-listing wide" id="prof-select">
+        </select>
+        <textarea id="thoughts-submit" class="review-content" placeholder="Your thoughts..."></textarea>
 
-        <h1 id="revnotice"  class="abtr">You're about to review...</h1>
-        <div class="review-pending">
-            
-            <img id="pi" class="imguser" />
-            <h1 id="pn" class="pending-name">Professor Example</h1>
-            <h1 id="pc" class="pending-rn">294 reviews</h1>
-        </div>
-        <h3 class="cont">Continue »</h3>
-
-        <div class="write-review">
-            {% csrf_token %}
-            <div class="rating-row">
-                <img id="s1" src="{% static 'img/star.png' %}"class="star-item gs"/>
-                <img id="s2" src="{% static 'img/star.png' %}"class="star-item gs"/>
-                <img id="s3" src="{% static 'img/star.png' %}"class="star-item gs"/>
-                <img id="s4" src="{% static 'img/star.png' %}"class="star-item gs"/>
-                <img id="s5" src="{% static 'img/star.png' %}"class="star-item gs"/>
-            </div>
-            <input id="title-submit" class="review-title" placeholder="A brief title"/>
-            <select class="prof-listing wide" id="prof-select">
-            </select>
-            <textarea id="thoughts-submit" class="review-content" placeholder="Your thoughts..."></textarea>
-
-            <button class="submit-review">SUBMIT REVIEW</button>
-        </div>
+        <button class="submit-review">SUBMIT REVIEW</button>
+    </div>
 
 
-    </body>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script src="{% static 'js/libs/jquery.nice-select.js' %}"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js"></script>
+</body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="{% static 'js/libs/jquery.nice-select.js' %}"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js"></script>
 
-    <script src="{% static 'js/compose.js' %}"> </script>
+<script src="{% static 'js/compose.js' %}"> </script>
 
 </html>

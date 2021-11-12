@@ -1,21 +1,22 @@
-
 <html>
-    {% load static %}
-    <head>
-        <link href="{% static 'css/header.css' %}" rel="stylesheet" />
-    </head>
+{% load static %}
 
-    <body>
-        <div id="header"> 
-            <img id="himg" class="hh-img" src="{% static 'img/home.png' %}"/>
+<head>
+    <link href="{% static 'css/header.css' %}" rel="stylesheet" />
+</head>
 
-            <h1 onclick="window.location.href='/compose';" class="header-text tl">New Review</h1>
-            <div id="sbi" class="searchbox"> 
-            <h1  class="header-text rm">Github</h1>
-            <img id="mg-i" class="mg-img" src="{% static 'img/github.png' %}"/>
-            </div>
+<body>
+    <div id="header">
+        <img id="himg" class="hh-img" src="{% static 'img/home.png' %}" />
+
+        <h1 onclick="window.location.href='/compose';" class="header-text tl">New Review</h1>
+        <div id="sbi" class="searchbox">
+            <h1 class="header-text rm">Github</h1>
+            <img id="mg-i" class="mg-img" src="{% static 'img/github.png' %}" />
         </div>
-    </body>
+    </div>
+</body>
 
-    <script src="{% static 'js/header.js' %}"> </script>
+<script src="{% static 'js/header.js' %}"> </script>
+
 </html>

@@ -4,51 +4,51 @@ var CUR_ID;
 var CUR_NAME;
 var CUR_CAT;
 
-$(document).ready(function(){
+$(document).ready(function () {
     $('select').niceSelect();
 });
 
-$('.cont').click(function(){
+$('.cont').click(function () {
     if (canProceed) {
 
-    } else { 
+    } else {
         Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'You need to select something from the search bar to review first!'
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You need to select something from the search bar to review first!'
         });
     }
 });
 
-function updateDisplay(data){
+function updateDisplay(data) {
     const propImage = document.getElementById('pi');
     const propName = document.getElementById('pn');
     const propCount = document.getElementById('pc');
 
-    if (data){
+    if (data) {
         CUR_CAT = data.category_name;
         propImage.style.backgroundImage = `url('${data.image_url}')`;
-        $('.abtr').css({display: 'block'})
+        $('.abtr').css({ display: 'block' })
         propName.innerHTML = data.name;
         propCount.innerHTML = `${data.num_reviews} reviews`;
         $('.review-pending').removeClass('rpb');
         $('#revnotice').html(`You're about to review a ${CUR_CAT}...`);
-        $('.write-review').css({opacity: 1});
+        $('.write-review').css({ opacity: 1 });
 
 
         if (!!data.professors.length) {
-            $('.nice-select').css({display: 'inline-block'});
+            $('.nice-select').css({ display: 'inline-block' });
             document.querySelector('#prof-select').innerHTML = data.professors.map(p => `<option value="${p.uni}">${p.name} (${p.uni})</option>`).join(`\n`);
             $('select').niceSelect();
             $('select').niceSelect('update');
 
-        }  else if (!!data.courses.length) { 
-            $('.nice-select').css({display: 'inline-block'});
+        } else if (!!data.courses.length) {
+            $('.nice-select').css({ display: 'inline-block' });
             document.querySelector('#prof-select').innerHTML = data.courses.map(c => `<option value="${c.roid}">${c.name}</option>`).join(`\n`);
             $('select').niceSelect();
             $('select').niceSelect('update');
         } else {
-            $('.nice-select').css({display: 'none'});
+            $('.nice-select').css({ display: 'none' });
         }
 
     } else {
@@ -56,9 +56,9 @@ function updateDisplay(data){
         propName.innerHTML = `Professor Example`;
         propCount.innerHTML = `294 reviews`;
         $('.review-pending').addClass('rpb');
-        $('#revnotice').html(`You're about to review...`);    
-        $('.write-review').css({opacity: 0});   
-        $('.abtr').css({display: 'none'})
+        $('#revnotice').html(`You're about to review...`);
+        $('.write-review').css({ opacity: 0 });
+        $('.abtr').css({ display: 'none' })
     }
 }
 
@@ -81,9 +81,9 @@ const autoCompleteJS = new autoComplete({
     },
     searchEngine: 'loose',
     query: (input) => {
-        if (input === ``){
-           updateDisplay();
-           canProceed = false;
+        if (input === ``) {
+            updateDisplay();
+            canProceed = false;
         }
 
         return input;
@@ -99,7 +99,7 @@ const autoCompleteJS = new autoComplete({
                 CUR_NAME = name;
 
 
-                fetch(`/getrodata?id=${selection.value.id}`).then(res=>res.json()).then(json => {
+                fetch(`/getrodata?id=${selection.value.id}`).then(res => res.json()).then(json => {
                     updateDisplay(json);
                     canProceed = true;
                 })
@@ -111,14 +111,14 @@ const autoCompleteJS = new autoComplete({
 });
 
 const e_target = new URL(window.location.href).searchParams.get('target');
-if (e_target){ 
+if (e_target) {
     CUR_ID = e_target;
     CUR_NAME = new URL(window.location.href).searchParams.get('name');
-    fetch(`/getrodata?id=${e_target}`).then(res=>res.json()).then(json => {
-                    updateDisplay(json);
-                    canProceed = true;
+    fetch(`/getrodata?id=${e_target}`).then(res => res.json()).then(json => {
+        updateDisplay(json);
+        canProceed = true;
     });
-} else { 
+} else {
     updateDisplay();
 }
 
@@ -127,36 +127,36 @@ var cIdxGlobal = null;
 $('.star-item').hover((event) => {
     let cStar = event.currentTarget;
     let cIdx = parseInt(cStar.id.replace('s', ''));
-    for (var i=1;i<=cIdx;i++){
+    for (var i = 1; i <= cIdx; i++) {
         let star = document.getElementById(`s${i}`);
         $(star).removeClass('gs');
     }
 
-    for (var i=cIdx+1;i<=5;i++) {
-    let star = document.getElementById(`s${i}`);
+    for (var i = cIdx + 1; i <= 5; i++) {
+        let star = document.getElementById(`s${i}`);
         $(star).addClass('gs');
     }
 
     cIdxGlobal = cIdx;
 });
 
-$('.star-item').click(function(){
+$('.star-item').click(function () {
     starState = cIdxGlobal;
 })
 
-$('.rating-row').mouseleave(function(){
-    for (var i=1;i<=starState;i++){
+$('.rating-row').mouseleave(function () {
+    for (var i = 1; i <= starState; i++) {
         let star = document.getElementById(`s${i}`);
         $(star).removeClass('gs');
     }
-    for (var i=starState+1;i<=5;i++) {
-    let star = document.getElementById(`s${i}`);
+    for (var i = starState + 1; i <= 5; i++) {
+        let star = document.getElementById(`s${i}`);
         $(star).addClass('gs');
     }
 })
 
 
-$('.submit-review').click(function(){
+$('.submit-review').click(function () {
     // Check invalid 
 
     const title = document.getElementById('title-submit').value;
@@ -165,16 +165,16 @@ $('.submit-review').click(function(){
 
     if (starState === null || !thoughts || !title || !CUR_ID) {
         Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'You need to provide a rating, title, and review before submitting!'
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You need to provide a rating, title, and review before submitting!'
         });
         return;
     }
 
     const data = {
         title: title,
-        review: thoughts, 
+        review: thoughts,
         rating: starState,
         target_id: CUR_ID,
         category: CUR_CAT,
@@ -187,8 +187,8 @@ $('.submit-review').click(function(){
             'X-CSRFToken': csrftoken,
         },
         body: JSON.stringify(data)
-     }).then(response => response.json()).then(json =>{
-         if (json.success){ 
+    }).then(response => response.json()).then(json => {
+        if (json.success) {
             Swal.fire({
                 icon: 'success',
                 title: `${CUR_NAME} Review Submitted!`,
@@ -196,12 +196,12 @@ $('.submit-review').click(function(){
             }).then(result => {
                 window.location = '/';
             })
-         } else {
+        } else {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Something went wrong! Please try again later.'
             });
-         }
-     })
+        }
+    })
 })
