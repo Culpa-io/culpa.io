@@ -37,7 +37,6 @@ function newSelect(evt, category) {
         window.acJS = createAutocomplete('#search-submit', `Search for ${category}...`, `${category}`);
     } else {
         $('#search-submit').css({ height: 0, opacity: 0 });
-        window.acJS = createAutocomplete('#search-submit', `Search for ${category}...`, `${category}`);
     }
 
 }
