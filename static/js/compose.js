@@ -249,7 +249,7 @@ $('.submit-review').click(function() {
     let selectMeta = document.querySelector('#prof-select').value;
 
     if (selectMeta === 'other' && canProceedSubmit) {
-        selectMeta = CUR_ID_SUBMIT ? .toString();
+        selectMeta = CUR_ID_SUBMIT?.toString();
     }
 
     if (starState === null || !thoughts || !title || !CUR_ID || (selectMeta === 'other' && !canProceedSubmit)) {
