@@ -3,6 +3,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models.signals import pre_save, pre_delete
 from django.dispatch import receiver
+from django.db.models import Q
 
 
 class Professor(models.Model):
@@ -127,6 +128,10 @@ def update_num_reviews(sender, instance, **kwargs):
                     ro_prof.numReviews += 1
                     ro_prof.save()
 
+                if instance.target.category.name == 'courses':
+                    instance.target.relatedCourse.professors.add(
+                        instance.relatedProfessor)
+
             elif not instance.approved:
                 instance.target.numReviews -= 1
                 instance.target.save()
@@ -136,6 +141,10 @@ def update_num_reviews(sender, instance, **kwargs):
                         relatedProfessor=instance.relatedProfessor)
                     ro_prof.numReviews -= 1
                     ro_prof.save()
+
+                if instance.target.category.name == 'courses' and not Review.objects.filter(target=instance.target).filter(relatedProfessor=instance.relatedProfessor).filter(~Q(id=instance.pk)):
+                    instance.target.relatedCourse.professors.remove(
+                        instance.relatedProfessor)
 
 
 @receiver(pre_delete, sender=Review)

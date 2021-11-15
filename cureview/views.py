@@ -120,7 +120,8 @@ def reviews(request, category, id):
             meta = review.relatedProfessor.name if categorySearch == 'courses' else review.target.relatedCourse.course_name
             if categorySearch == 'courses':
                 meta_url = '/reviews/professors/' + \
-                    str(ReviewableObject.objects.get(relatedProfessor=review.relatedProfessor).id)
+                    str(ReviewableObject.objects.get(
+                        relatedProfessor=review.relatedProfessor).id)
             else:
                 meta_url = '/reviews/courses/' + str(review.target.id)
         if categorySearch in ['professors', 'courses']:
@@ -154,7 +155,8 @@ def reviews(request, category, id):
                 ' ')[-1] if categorySearch == 'courses' else posReview.target.relatedCourse.course_identifier
             if categorySearch == 'courses':
                 meta_url = '/reviews/professors/' + \
-                    str(ReviewableObject.objects.get(relatedProfessor=posReview.relatedProfessor).id)
+                    str(ReviewableObject.objects.get(
+                        relatedProfessor=posReview.relatedProfessor).id)
             else:
                 meta_url = '/reviews/courses/' + str(posReview.target.id)
         context["top_review_data"].append({"title": posReview.title,
@@ -173,7 +175,8 @@ def reviews(request, category, id):
                 ' ')[-1] if categorySearch == 'courses' else negReview.target.relatedCourse.course_identifier
             if categorySearch == 'courses':
                 meta_url = '/reviews/professors/' + \
-                    str(ReviewableObject.objects.get(relatedProfessor=negReview.relatedProfessor).id)
+                    str(ReviewableObject.objects.get(
+                        relatedProfessor=negReview.relatedProfessor).id)
             else:
                 meta_url = '/reviews/courses/' + str(negReview.target.id)
 
@@ -256,10 +259,17 @@ def compose(request):
 
 def searchOpt(request):
     query = request.GET.get('query')
+    filterVal = request.GET.get('filterby')
+
+    roBase = ReviewableObject.objects
+    if filterVal != None:
+        roBase = ReviewableObject.objects.filter(
+            category=ReviewableCategory.objects.get(name=filterVal))
+
     searchResult = []
-    allROS = list(ReviewableObject.objects.filter(
+    allROS = list(roBase.filter(
         name__icontains=query).order_by('-numReviews')[:5])
-    for ipn in ReviewableObject.objects.filter(
+    for ipn in roBase.filter(
             name__trigram_similar=query).order_by('-numReviews')[:5]:
         if ipn not in allROS:
             allROS.append(ipn)

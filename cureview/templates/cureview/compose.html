@@ -5,7 +5,10 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LG7HHMKB93"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
         gtag('js', new Date());
 
         gtag('config', 'G-LG7HHMKB93');
@@ -13,11 +16,8 @@
 
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/libs/nice-select.css' %}" />
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/css/autoComplete.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
-        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/css/autoComplete.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
 
     <link href="{% static 'css/compose.css' %}" rel="stylesheet" />
 
@@ -27,8 +27,7 @@
     {% include 'cureview/header.html' %}
 
     <div class="toprow">
-        <input id="autoComplete" class="review-search" type="search" dir="ltr" spellcheck=false autocorrect="off"
-            autocomplete="off" autocapitalize="off">
+        <input id="autoComplete" class="review-search" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off">
     </div>
     <div id="attach"></div>
 
@@ -52,6 +51,7 @@
         </div>
         <input id="title-submit" class="review-title" placeholder="A brief title" />
         <select class="prof-listing wide" id="prof-select">
+        <input id="search-submit" class="search-class-prof" />  
         </select>
         <textarea id="thoughts-submit" class="review-content" placeholder="Your thoughts..."></textarea>
 
@@ -66,6 +66,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js"></script>
 
-<script src="{% static 'js/compose.js' %}"> </script>
+<script src="{% static 'js/compose.js' %}">
+</script>
 
 </html>

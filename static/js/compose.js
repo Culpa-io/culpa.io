@@ -4,6 +4,12 @@ var CUR_ID;
 var CUR_NAME;
 var CUR_CAT;
 
+
+var canProceedSubmit = false;
+var CUR_ID_SUBMIT;
+var CUT_NAME_SUBMIT;
+
+
 $(document).ready(function () {
     $('select').niceSelect();
 });
@@ -20,10 +26,24 @@ $('.cont').click(function () {
     }
 });
 
+function newSelect(evt, category) {
+    if ($('select').val() === 'other') {
+        $('#search-submit').css({ height: 50, opacity: 1 });
+    } else {
+        $('#search-submit').css({ height: 0, opacity: 0 });
+    }
+
+    try {
+        window.acJS?.unInit();
+    } catch (e) { };
+    window.acJS = createAutocomplete('#search-submit', `Search for ${category}...`, `${category}`);
+}
+
 function updateDisplay(data) {
     const propImage = document.getElementById('pi');
     const propName = document.getElementById('pn');
     const propCount = document.getElementById('pc');
+    $('#search-submit').val('');
 
     if (data) {
         CUR_CAT = data.category_name;
@@ -35,23 +55,28 @@ function updateDisplay(data) {
         $('#revnotice').html(`You're about to review a ${CUR_CAT}...`);
         $('.write-review').css({ opacity: 1 });
 
+        let OTHER = `<option value="other">Other</option>`;
 
         if (!!data.professors.length) {
             $('.nice-select').css({ display: 'inline-block' });
-            document.querySelector('#prof-select').innerHTML = data.professors.map(p => `<option value="${p.uni}">${p.name} (${p.uni})</option>`).join(`\n`);
+            document.querySelector('#prof-select').innerHTML = data.professors.map(p => `<option value="${p.uni}">${p.name} (${p.uni})</option>`).join(`\n`) + OTHER;
             $('select').niceSelect();
+            $('select').change((evt) => newSelect(evt, 'professors'));
             $('select').niceSelect('update');
-
         } else if (!!data.courses.length) {
             $('.nice-select').css({ display: 'inline-block' });
-            document.querySelector('#prof-select').innerHTML = data.courses.map(c => `<option value="${c.roid}">${c.name}</option>`).join(`\n`);
+            document.querySelector('#prof-select').innerHTML = data.courses.map(c => `<option value="${c.roid}">${c.name}</option>`).join(`\n`) + OTHER;
             $('select').niceSelect();
+            $('select').change((evt) => newSelect(evt, 'courses'));
             $('select').niceSelect('update');
         } else {
             $('.nice-select').css({ display: 'none' });
+            $('#search-submit').css({ height: 0, opacity: 0 });
+            window.acJS?.unInit();
         }
 
     } else {
+        $('#search-submit').css({ height: 0, opacity: 0 });
         propImage.style.backgroundImage = `url('/static/img/user.png')`;
         propName.innerHTML = `Professor Example`;
         propCount.innerHTML = `294 reviews`;
@@ -59,6 +84,7 @@ function updateDisplay(data) {
         $('#revnotice').html(`You're about to review...`);
         $('.write-review').css({ opacity: 0 });
         $('.abtr').css({ display: 'none' })
+        window.acJS?.unInit();
     }
 }
 
@@ -109,6 +135,62 @@ const autoCompleteJS = new autoComplete({
 
     }
 });
+
+function createAutocomplete(selector, placeholder, category) {
+
+    return new autoComplete({
+        placeHolder: placeholder,
+        data: {
+            src: async (query) => {
+                const source = await fetch(`/search-opt?query=${query}&filterby=${category}`);
+                const data = await source.json();
+
+
+                return data;
+            },
+            cache: false,
+            keys: ["name"]
+        },
+        selector: selector,
+        resultItem: {
+            highlight: true
+        },
+        searchEngine: 'loose',
+        query: (input) => {
+
+            if (input === ``) {
+                canProceedSubmit = false;
+            }
+
+            return input;
+        },
+        events: {
+            input: {
+                selection: (event) => {
+                    const selection = event.detail.selection;
+                    const name = selection.value[selection.key];
+
+                    $(selector).val(name);
+
+                    CUR_ID_SUBMIT = selection.value.id;
+                    CUR_NAME_SUBMIT = name;
+
+                    canProceedSubmit = true;
+
+                    // fetch(`/getrodata?id=${selection.value.id}`).then(res => res.json()).then(json => {
+                    //     // updateDisplay(json);
+                    //     console.log(json);
+                    //     // canProceed = true;
+                    // })
+                }
+            },
+
+
+        }
+    });
+
+}
+
 
 const e_target = new URL(window.location.href).searchParams.get('target');
 if (e_target) {
@@ -161,9 +243,13 @@ $('.submit-review').click(function () {
 
     const title = document.getElementById('title-submit').value;
     const thoughts = document.getElementById('thoughts-submit').value;
-    const selectMeta = document.querySelector('#prof-select').value;
+    let selectMeta = document.querySelector('#prof-select').value;
 
-    if (starState === null || !thoughts || !title || !CUR_ID) {
+    if (selectMeta === 'other' && canProceedSubmit) {
+        selectMeta = CUR_ID_SUBMIT?.toString();
+    }
+
+    if (starState === null || !thoughts || !title || !CUR_ID || (selectMeta === 'other' && !canProceedSubmit)) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
