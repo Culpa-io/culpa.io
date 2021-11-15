@@ -10,11 +10,11 @@ var CUR_ID_SUBMIT;
 var CUT_NAME_SUBMIT;
 
 
-$(document).ready(function () {
+$(document).ready(function() {
     $('select').niceSelect();
 });
 
-$('.cont').click(function () {
+$('.cont').click(function() {
     if (canProceed) {
 
     } else {
@@ -27,16 +27,19 @@ $('.cont').click(function () {
 });
 
 function newSelect(evt, category) {
-    if ($('select').val() === 'other') {
-        $('#search-submit').css({ height: 50, opacity: 1 });
-    } else {
-        $('#search-submit').css({ height: 0, opacity: 0 });
-    }
 
     try {
-        window.acJS?.unInit();
-    } catch (e) { };
-    window.acJS = createAutocomplete('#search-submit', `Search for ${category}...`, `${category}`);
+        window.acJS ? .unInit();
+    } catch (e) {};
+
+    if ($('select').val() === 'other') {
+        $('#search-submit').css({ height: 50, opacity: 1 });
+        window.acJS = createAutocomplete('#search-submit', `Search for ${category}...`, `${category}`);
+    } else {
+        $('#search-submit').css({ height: 0, opacity: 0 });
+        window.acJS = createAutocomplete('#search-submit', `Search for ${category}...`, `${category}`);
+    }
+
 }
 
 function updateDisplay(data) {
@@ -72,7 +75,7 @@ function updateDisplay(data) {
         } else {
             $('.nice-select').css({ display: 'none' });
             $('#search-submit').css({ height: 0, opacity: 0 });
-            window.acJS?.unInit();
+            window.acJS ? .unInit();
         }
 
     } else {
@@ -84,7 +87,7 @@ function updateDisplay(data) {
         $('#revnotice').html(`You're about to review...`);
         $('.write-review').css({ opacity: 0 });
         $('.abtr').css({ display: 'none' })
-        window.acJS?.unInit();
+        window.acJS ? .unInit();
     }
 }
 
@@ -92,7 +95,7 @@ function updateDisplay(data) {
 const autoCompleteJS = new autoComplete({
     placeHolder: "Search for professors, residence halls, clubs...",
     data: {
-        src: async (query) => {
+        src: async(query) => {
             const source = await fetch(`/search-opt?query=${query}`);
             const data = await source.json();
 
@@ -141,7 +144,7 @@ function createAutocomplete(selector, placeholder, category) {
     return new autoComplete({
         placeHolder: placeholder,
         data: {
-            src: async (query) => {
+            src: async(query) => {
                 const source = await fetch(`/search-opt?query=${query}&filterby=${category}`);
                 const data = await source.json();
 
@@ -222,11 +225,11 @@ $('.star-item').hover((event) => {
     cIdxGlobal = cIdx;
 });
 
-$('.star-item').click(function () {
+$('.star-item').click(function() {
     starState = cIdxGlobal;
 })
 
-$('.rating-row').mouseleave(function () {
+$('.rating-row').mouseleave(function() {
     for (var i = 1; i <= starState; i++) {
         let star = document.getElementById(`s${i}`);
         $(star).removeClass('gs');
@@ -238,7 +241,7 @@ $('.rating-row').mouseleave(function () {
 })
 
 
-$('.submit-review').click(function () {
+$('.submit-review').click(function() {
     // Check invalid 
 
     const title = document.getElementById('title-submit').value;
@@ -246,7 +249,7 @@ $('.submit-review').click(function () {
     let selectMeta = document.querySelector('#prof-select').value;
 
     if (selectMeta === 'other' && canProceedSubmit) {
-        selectMeta = CUR_ID_SUBMIT?.toString();
+        selectMeta = CUR_ID_SUBMIT ? .toString();
     }
 
     if (starState === null || !thoughts || !title || !CUR_ID || (selectMeta === 'other' && !canProceedSubmit)) {
