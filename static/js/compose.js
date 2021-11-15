@@ -29,7 +29,7 @@ $('.cont').click(function() {
 function newSelect(evt, category) {
 
     try {
-        window.acJS ? .unInit();
+        window.acJS?.unInit();
     } catch (e) {};
 
     if ($('select').val() === 'other') {
@@ -75,7 +75,7 @@ function updateDisplay(data) {
         } else {
             $('.nice-select').css({ display: 'none' });
             $('#search-submit').css({ height: 0, opacity: 0 });
-            window.acJS ? .unInit();
+            window.acJS?.unInit();
         }
 
     } else {
@@ -87,7 +87,7 @@ function updateDisplay(data) {
         $('#revnotice').html(`You're about to review...`);
         $('.write-review').css({ opacity: 0 });
         $('.abtr').css({ display: 'none' })
-        window.acJS ? .unInit();
+        window.acJS?.unInit();
     }
 }
 
