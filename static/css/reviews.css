@@ -433,12 +433,12 @@ label {
 
 .bounce {
     background-color: rgb(76, 77, 220);
-    width: 80%;
+    width: 60%;
     height: 10px;
     position: absolute;
     margin-top: auto;
     margin-bottom: -40px;
-    left: -80%;
+    left: -60%;
     border-radius: 5px;
     animation: border 1s ease-out 3;
 }
